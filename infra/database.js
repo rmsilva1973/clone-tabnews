@@ -1,7 +1,7 @@
 import { Client } from "pg";
 
 async function query(queryObject) {
-  database_creds = {
+  var database_creds = {
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     user: process.env.POSTGRES_USER,
@@ -10,7 +10,6 @@ async function query(queryObject) {
   };
   const client = new Client(database_creds);
   console.log("Credenciais do banco:", database_creds);
-  var result = null;
   try {
     await client.connect();
     const result = await client.query(queryObject);
@@ -21,7 +20,6 @@ async function query(queryObject) {
   } finally {
     await client.end();
   }
-  return result;
 }
 
 export default {
