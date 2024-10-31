@@ -9,7 +9,7 @@ async function query(queryObject) {
     password: process.env.POSTGRES_PASSWORD,
     ssl: getSSLValues(),
   };
-  console.log(`database_creds: ${database_creds}`);
+  console.log(`database_creds: ${JSON.stringify(database_creds)}`);
   const client = new Client(database_creds);
   try {
     await client.connect();
