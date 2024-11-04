@@ -32,5 +32,5 @@ export default async function status(request, response) {
   }
 
   console.log("Vou retornar.");
-  return response.status(405);
+  return response.status(405).end();
 }
