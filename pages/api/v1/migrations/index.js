@@ -3,6 +3,10 @@ import { join } from "node:path";
 import database from "infra/database.js";
 
 export default async function status(request, response) {
+  if (request.method != "GET" && request.method != "POST") {
+    return response.status(405);
+  }
+
   console.log(`Requisição recebida. Método: ${request.method}`);
   const dbClient = await database.getNewClient();
   console.log("Cliente de banco criado.");
@@ -33,5 +37,4 @@ export default async function status(request, response) {
   }
 
   console.log("Vou retornar...");
-  return response.status(405);
 }
