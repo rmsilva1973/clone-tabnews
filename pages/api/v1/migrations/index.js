@@ -3,13 +3,8 @@ import { join } from "node:path";
 import database from "infra/database.js";
 
 export default async function status(request, response) {
-  if (request.method != "GET" && request.method != "POST") {
-    return response.status(405);
-  }
-
   console.log(`Requisição recebida. Método: ${request.method}`);
   const dbClient = await database.getNewClient();
-  console.log("Cliente de banco criado.");
   const defaultMigrationOptions = {
     dbClient: dbClient,
     dryRun: true,
@@ -36,5 +31,6 @@ export default async function status(request, response) {
     return response.status(200).json(deployedMigrations);
   }
 
-  console.log("Vou retornar...");
+  console.log("Vou retornar.");
+  return response.status(405);
 }
