@@ -3,7 +3,9 @@ import { join } from "node:path";
 import database from "infra/database.js";
 
 export default async function status(request, response) {
+  console.log(`Requisição recebida. Método: ${request.method}`);
   const dbClient = await database.getNewClient();
+  console.log("Cliente de banco criado.");
   const defaultMigrationOptions = {
     dbClient: dbClient,
     dryRun: true,
