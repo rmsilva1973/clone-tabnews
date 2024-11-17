@@ -1,14 +1,10 @@
-import database from "infra/database.js";
 import orchestrator from "tests/orchestrator.js";
+import database from "infra/database.js";
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
-  cleanDatabase();
+  await orchestrator.clearDatabase();
 });
-
-async function cleanDatabase() {
-  await database.query("drop schema public cascade; create schema public;");
-}
 
 async function checkMigrationCount(migrationName) {
   const queryResult = await database.query(
