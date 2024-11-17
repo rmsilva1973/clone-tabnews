@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run services:up && npm run services:wait:database && npm run migrations:up && next dev",
-    "test": "npm run services:up && concurrently -k -s command-jest -n next,jest --hide next \"next dev\" \"jest --runInBand\"",
+    "test": "npm run services:up && concurrently -n next,jest --hide next -k -s command-jest \"next dev\" \"jest --runInBand --verbose\"",
     "posttest": "npm run services:stop",
     "test:watch": "jest --watchAll --runInBand --verbose",
     "services:up": "docker compose -f infra/compose.yaml up -d",
@@ -27,7 +27,7 @@
     "dotenv": "16.4.5",
     "dotenv-expand": "11.0.6",
     "next": "15.0.3",
-    "node-pg-migrate": "6.2.2",
+    "node-pg-migrate": "7.6.1",
     "pg": "8.13.1",
     "react": "18.3.1",
     "react-dom": "18.3.1"
