@@ -11,16 +11,17 @@ export default function StatusPage() {
   return (
     <>
       <h1 className={styles.statusTitle}>Status</h1>
-      <Status />
+      <DatabaseStatus />
     </>
   );
 }
 
-function Status() {
+function DatabaseStatus() {
   const { isLoading, data } = useSWR("/api/v1/status", fetchAPI, {
     refreshInterval: 2000,
   });
 
+  let databaseStatusInformation = "Carregando...";
   if (!isLoading && data) {
     const updatedAt = new Date(data.updated_at).toLocaleString("pt-BR");
     const {
@@ -28,7 +29,7 @@ function Status() {
       max_connections: maxConnections,
       opened_connections: openedConnections,
     } = data.dependencies.databases;
-    return (
+    databaseStatusInformation = (
       <div className={styles.statusContainer}>
         <div className={styles.statusItem}>Última atualização: {updatedAt}</div>
         <div className={styles.statusItem}>
@@ -42,7 +43,6 @@ function Status() {
         </div>
       </div>
     );
-  } else {
-    return <div className={styles.loading}>Carregando...</div>;
   }
+  return <div className={styles.loading}>{databaseStatusInformation}</div>;
 }
